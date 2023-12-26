@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Cell Conn</string>
+    <string name="serving_cell_data">Serving Cell Data</string>
+</resources>
