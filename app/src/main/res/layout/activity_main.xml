@@ -24,6 +24,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:typeface="monospace"
             />
         <TextView
             android:textColor="#DFFF00"
@@ -37,7 +38,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/rsrp_label"
             app:layout_constraintTop_toBottomOf="@+id/coords_title"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+            android:typeface="monospace"
+            android:enabled="false"
+            android:visibility="invisible"/>
         <TextView
             android:textColor="#DFFF00"
             android:id="@+id/downloadspeed"
@@ -50,20 +54,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/downloadspeed_label"
             app:layout_constraintTop_toBottomOf="@+id/rsrp"
-            app:layout_constraintVertical_bias="0.0" />
-        <TextView
-            android:textColor="#DFFF00"
-            android:id="@+id/ta"
-            android:layout_width="180dp"
-            android:layout_height="40dp"
-            android:includeFontPadding="false"
-            android:singleLine="false"
-            android:text=""
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/ta_label"
-            app:layout_constraintTop_toBottomOf="@+id/downloadspeed"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+            android:typeface="monospace"
+            android:enabled="false"
+            android:visibility="invisible"/>
         <TextView
             android:textColor="#DFFF00"
             android:id="@+id/plmn"
@@ -75,8 +69,11 @@
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/plmn_label"
-            app:layout_constraintTop_toBottomOf="@+id/ta"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@+id/downloadspeed"
+            app:layout_constraintVertical_bias="0.0"
+            android:typeface="monospace"
+            android:enabled="false"
+            android:visibility="invisible"/>
         <TextView
             android:textColor="#DFFF00"
             android:id="@+id/lac"
@@ -89,7 +86,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/lac_label"
             app:layout_constraintTop_toBottomOf="@+id/plmn"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+            android:typeface="monospace"
+            android:enabled="false"
+            android:visibility="invisible"/>
         <TextView
             android:textColor="#DFFF00"
             android:id="@+id/cellid"
@@ -102,7 +102,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/cellid_label"
             app:layout_constraintTop_toBottomOf="@+id/lac"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+            android:typeface="monospace"
+            android:enabled="false"
+            android:visibility="invisible"/>
         <TextView
             android:textColor="#DFFF00"
             android:id="@+id/enodeb"
@@ -115,7 +118,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/enodeb_label"
             app:layout_constraintTop_toBottomOf="@+id/cellid"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+            android:typeface="monospace"
+            android:enabled="false"
+            android:visibility="invisible"/>
         <TextView
             android:textColor="#DFFF00"
             android:id="@+id/rat"
@@ -128,7 +134,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/rat_label"
             app:layout_constraintTop_toBottomOf="@+id/enodeb"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+            android:typeface="monospace"
+            android:enabled="false"
+            android:visibility="invisible"/>
         <TextView
             android:textColor="#DFFF00"
             android:id="@+id/latitude"
@@ -141,7 +150,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/latitude_label"
             app:layout_constraintTop_toBottomOf="@+id/rat"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+            android:typeface="monospace"
+            android:enabled="false"
+            android:visibility="invisible"/>
         <TextView
             android:textColor="#DFFF00"
             android:id="@+id/longitude"
@@ -154,7 +166,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/longitude_label"
             app:layout_constraintTop_toBottomOf="@+id/latitude"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+            android:typeface="monospace"
+            android:enabled="false"
+            android:visibility="invisible"/>
         <TextView
             android:textColor="#DFFF00"
             android:id="@+id/channel"
@@ -167,20 +182,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/channel_label"
             app:layout_constraintTop_toBottomOf="@+id/longitude"
-            app:layout_constraintVertical_bias="0.0" />
-        <TextView
-            android:textColor="#DFFF00"
-            android:id="@+id/nrarfcn"
-            android:layout_width="180dp"
-            android:layout_height="40dp"
-            android:includeFontPadding="false"
-            android:singleLine="false"
-            android:text=""
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/nrarfcn_label"
-            app:layout_constraintTop_toBottomOf="@+id/channel"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+            android:typeface="monospace"
+            android:enabled="false"
+            android:visibility="invisible"/>
         <TextView
             android:textColor="#DFFF00"
             android:id="@+id/lte_band"
@@ -192,21 +197,11 @@
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/lte_band_label"
-            app:layout_constraintTop_toBottomOf="@+id/nrarfcn"
-            app:layout_constraintVertical_bias="0.0" />
-        <TextView
-            android:textColor="#DFFF00"
-            android:id="@+id/nr5gband"
-            android:layout_width="180dp"
-            android:layout_height="40dp"
-            android:includeFontPadding="false"
-            android:singleLine="false"
-            android:text=""
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/nr5gband_label"
-            app:layout_constraintTop_toBottomOf="@+id/lte_band"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@+id/channel"
+            app:layout_constraintVertical_bias="0.0"
+            android:typeface="monospace"
+            android:enabled="false"
+            android:visibility="invisible"/>
         <TextView
             android:textColor="#DFFF00"
             android:id="@+id/spectrum"
@@ -218,34 +213,11 @@
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/spectrum_label"
-            app:layout_constraintTop_toBottomOf="@+id/nr5gband"
-            app:layout_constraintVertical_bias="0.0" />
-        <TextView
-            android:textColor="#DFFF00"
-            android:id="@+id/nrspectrum"
-            android:layout_width="180dp"
-            android:layout_height="40dp"
-            android:includeFontPadding="false"
-            android:singleLine="false"
-            android:text=""
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/nrspectrum_label"
-            app:layout_constraintTop_toBottomOf="@+id/spectrum"
-            app:layout_constraintVertical_bias="0.0" />
-        <TextView
-            android:textColor="#DFFF00"
-            android:id="@+id/bandwidth"
-            android:layout_width="180dp"
-            android:layout_height="40dp"
-            android:includeFontPadding="false"
-            android:singleLine="false"
-            android:text=""
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/bandwidth_label"
-            app:layout_constraintTop_toBottomOf="@+id/nrspectrum"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@+id/lte_band"
+            app:layout_constraintVertical_bias="0.0"
+            android:typeface="monospace"
+            android:enabled="false"
+            android:visibility="invisible"/>
         <TextView
             android:textColor="#DFFF00"
             android:id="@+id/pci"
@@ -257,21 +229,11 @@
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/pci_label"
-            app:layout_constraintTop_toBottomOf="@+id/bandwidth"
-            app:layout_constraintVertical_bias="0.0" />
-        <TextView
-            android:textColor="#DFFF00"
-            android:id="@+id/nrpci"
-            android:layout_width="180dp"
-            android:layout_height="40dp"
-            android:includeFontPadding="false"
-            android:singleLine="false"
-            android:text=""
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/nrpci_label"
-            app:layout_constraintTop_toBottomOf="@+id/pci"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@+id/spectrum"
+            app:layout_constraintVertical_bias="0.0"
+            android:typeface="monospace"
+            android:enabled="false"
+            android:visibility="invisible"/>
         <TextView
             android:textColor="#DFFF00"
             android:id="@+id/rsrq"
@@ -283,8 +245,11 @@
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/rsrq_label"
-            app:layout_constraintTop_toBottomOf="@+id/nrpci"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@+id/pci"
+            app:layout_constraintVertical_bias="0.0"
+            android:typeface="monospace"
+            android:enabled="false"
+            android:visibility="invisible"/>
         <TextView
             android:textColor="#DFFF00"
             android:id="@+id/ipaddress"
@@ -297,7 +262,107 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/ipaddress_label"
             app:layout_constraintTop_toBottomOf="@+id/rsrq"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+            android:typeface="monospace"
+            android:enabled="false"
+            android:visibility="invisible"/>
+        <TextView
+            android:textColor="#DFFF00"
+            android:id="@+id/bandwidth"
+            android:layout_width="180dp"
+            android:layout_height="40dp"
+            android:includeFontPadding="false"
+            android:singleLine="false"
+            android:text=""
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/bandwidth_label"
+            app:layout_constraintTop_toBottomOf="@+id/ipaddress"
+            app:layout_constraintVertical_bias="0.0"
+            android:typeface="monospace"
+            android:enabled="false"
+            android:visibility="invisible"/>
+        <TextView
+            android:textColor="#DFFF00"
+            android:id="@+id/ta"
+            android:layout_width="180dp"
+            android:layout_height="40dp"
+            android:includeFontPadding="false"
+            android:singleLine="false"
+            android:text=""
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ta_label"
+            app:layout_constraintTop_toBottomOf="@+id/bandwidth"
+            app:layout_constraintVertical_bias="0.0"
+            android:typeface="monospace"
+            android:enabled="false"
+            android:visibility="invisible"/>
+        <TextView
+            android:textColor="#DFFF00"
+            android:id="@+id/nrarfcn"
+            android:layout_width="180dp"
+            android:layout_height="40dp"
+            android:includeFontPadding="false"
+            android:singleLine="false"
+            android:text=""
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/nrarfcn_label"
+            app:layout_constraintTop_toBottomOf="@+id/ta"
+            app:layout_constraintVertical_bias="0.0"
+            android:typeface="monospace"
+            android:enabled="false"
+            android:visibility="invisible"/>
+        <TextView
+            android:textColor="#DFFF00"
+            android:id="@+id/nr5gband"
+            android:layout_width="180dp"
+            android:layout_height="40dp"
+            android:includeFontPadding="false"
+            android:singleLine="false"
+            android:text=""
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/nr5gband_label"
+            app:layout_constraintTop_toBottomOf="@+id/nrarfcn"
+            app:layout_constraintVertical_bias="0.0"
+            android:typeface="monospace"
+            android:enabled="false"
+            android:visibility="invisible"/>
+        <TextView
+            android:textColor="#DFFF00"
+            android:id="@+id/nrspectrum"
+            android:layout_width="180dp"
+            android:layout_height="40dp"
+            android:includeFontPadding="false"
+            android:singleLine="false"
+            android:text=""
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/nrspectrum_label"
+            app:layout_constraintTop_toBottomOf="@+id/nr5gband"
+            app:layout_constraintVertical_bias="0.0"
+            android:typeface="monospace"
+            android:enabled="false"
+            android:visibility="invisible"/>
+        <TextView
+            android:textColor="#DFFF00"
+            android:id="@+id/nrpci"
+            android:layout_width="180dp"
+            android:layout_height="40dp"
+            android:includeFontPadding="false"
+            android:singleLine="false"
+            android:text=""
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/nrpci_label"
+            app:layout_constraintTop_toBottomOf="@+id/nrspectrum"
+            app:layout_constraintVertical_bias="0.0"
+            android:typeface="monospace"
+            android:enabled="false"
+            android:visibility="invisible"/>
+
 
         <TextView
             android:textColor="#DFFF00"
@@ -310,8 +375,11 @@
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/nrtac_label"
-            app:layout_constraintTop_toBottomOf="@+id/ipaddress"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@+id/nrpci"
+            app:layout_constraintVertical_bias="0.0"
+            android:typeface="monospace"
+            android:enabled="false"
+            android:visibility="invisible"/>
 
         <!-- next column -->
         <TextView
@@ -328,7 +396,10 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/coords_title"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+            android:typeface="monospace"
+            android:enabled="false"
+            android:visibility="invisible"/>
         <TextView
             android:textColor="#FFFFFF"
             android:id="@+id/downloadspeed_label"
@@ -343,22 +414,10 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/rsrp_label"
-            app:layout_constraintVertical_bias="0.0" />
-        <TextView
-            android:textColor="#FFFFFF"
-            android:id="@+id/ta_label"
-            android:layout_width="180dp"
-            android:layout_height="40dp"
-            android:includeFontPadding="false"
-            android:singleLine="false"
-            android:text="Timing Advance"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/ta"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/downloadspeed_label"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+            android:typeface="monospace"
+            android:enabled="false"
+            android:visibility="invisible"/>
         <TextView
             android:textColor="#FFFFFF"
             android:id="@+id/plmn_label"
@@ -372,8 +431,11 @@
             app:layout_constraintEnd_toStartOf="@+id/plmn"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ta_label"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@+id/downloadspeed_label"
+            app:layout_constraintVertical_bias="0.0"
+            android:typeface="monospace"
+            android:enabled="false"
+            android:visibility="invisible"/>
         <TextView
             android:textColor="#FFFFFF"
             android:id="@+id/lac_label"
@@ -388,7 +450,10 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/plmn_label"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+            android:typeface="monospace"
+            android:enabled="false"
+            android:visibility="invisible"/>
         <TextView
             android:textColor="#FFFFFF"
             android:id="@+id/cellid_label"
@@ -403,7 +468,10 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/lac_label"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+            android:typeface="monospace"
+            android:enabled="false"
+            android:visibility="invisible"/>
         <TextView
             android:textColor="#FFFFFF"
             android:id="@+id/enodeb_label"
@@ -418,7 +486,10 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cellid_label"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+            android:typeface="monospace"
+            android:enabled="false"
+            android:visibility="invisible"/>
         <TextView
             android:textColor="#FFFFFF"
             android:id="@+id/rat_label"
@@ -433,7 +504,10 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/enodeb_label"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+            android:typeface="monospace"
+            android:enabled="false"
+            android:visibility="invisible"/>
         <TextView
             android:textColor="#FFFFFF"
             android:id="@+id/latitude_label"
@@ -448,7 +522,10 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/rat_label"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+            android:typeface="monospace"
+            android:enabled="false"
+            android:visibility="invisible"/>
         <TextView
             android:textColor="#FFFFFF"
             android:id="@+id/longitude_label"
@@ -463,7 +540,10 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/latitude_label"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+            android:typeface="monospace"
+            android:enabled="false"
+            android:visibility="invisible"/>
         <TextView
             android:textColor="#FFFFFF"
             android:id="@+id/channel_label"
@@ -478,22 +558,10 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/longitude_label"
-            app:layout_constraintVertical_bias="0.0" />
-        <TextView
-            android:textColor="#FFFFFF"
-            android:id="@+id/nrarfcn_label"
-            android:layout_width="180dp"
-            android:layout_height="40dp"
-            android:includeFontPadding="false"
-            android:singleLine="false"
-            android:text="NRARFCN"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/nrarfcn"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/channel_label"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+            android:typeface="monospace"
+            android:enabled="false"
+            android:visibility="invisible"/>
         <TextView
             android:textColor="#FFFFFF"
             android:id="@+id/lte_band_label"
@@ -507,23 +575,11 @@
             app:layout_constraintEnd_toStartOf="@+id/lte_band"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/nrarfcn_label"
-            app:layout_constraintVertical_bias="0.0" />
-        <TextView
-            android:textColor="#FFFFFF"
-            android:id="@+id/nr5gband_label"
-            android:layout_width="180dp"
-            android:layout_height="40dp"
-            android:includeFontPadding="false"
-            android:singleLine="false"
-            android:text="NR 5G Band"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/nr5gband"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lte_band_label"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@+id/channel_label"
+            app:layout_constraintVertical_bias="0.0"
+            android:typeface="monospace"
+            android:enabled="false"
+            android:visibility="invisible"/>
         <TextView
             android:textColor="#FFFFFF"
             android:id="@+id/spectrum_label"
@@ -537,38 +593,11 @@
             app:layout_constraintEnd_toStartOf="@+id/spectrum"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/nr5gband_label"
-            app:layout_constraintVertical_bias="0.0" />
-        <TextView
-            android:textColor="#FFFFFF"
-            android:id="@+id/nrspectrum_label"
-            android:layout_width="180dp"
-            android:layout_height="40dp"
-            android:includeFontPadding="false"
-            android:singleLine="false"
-            android:text="NR Spectrum"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/nrspectrum"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/spectrum_label"
-            app:layout_constraintVertical_bias="0.0" />
-        <TextView
-            android:textColor="#FFFFFF"
-            android:id="@+id/bandwidth_label"
-            android:layout_width="180dp"
-            android:layout_height="40dp"
-            android:includeFontPadding="false"
-            android:singleLine="false"
-            android:text="Bandwidth"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/bandwidth"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/nrspectrum_label"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@+id/lte_band_label"
+            app:layout_constraintVertical_bias="0.0"
+            android:typeface="monospace"
+            android:enabled="false"
+            android:visibility="invisible"/>
         <TextView
             android:textColor="#FFFFFF"
             android:id="@+id/pci_label"
@@ -582,23 +611,11 @@
             app:layout_constraintEnd_toStartOf="@+id/pci"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bandwidth_label"
-            app:layout_constraintVertical_bias="0.0" />
-        <TextView
-            android:textColor="#FFFFFF"
-            android:id="@+id/nrpci_label"
-            android:layout_width="180dp"
-            android:layout_height="40dp"
-            android:includeFontPadding="false"
-            android:singleLine="false"
-            android:text="NR Pci"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/nrpci"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/pci_label"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@+id/spectrum_label"
+            app:layout_constraintVertical_bias="0.0"
+            android:typeface="monospace"
+            android:enabled="false"
+            android:visibility="invisible"/>
         <TextView
             android:textColor="#FFFFFF"
             android:id="@+id/rsrq_label"
@@ -612,8 +629,11 @@
             app:layout_constraintEnd_toStartOf="@+id/rsrq"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/nrpci_label"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@+id/pci_label"
+            app:layout_constraintVertical_bias="0.0"
+            android:typeface="monospace"
+            android:enabled="false"
+            android:visibility="invisible"/>
         <TextView
             android:textColor="#FFFFFF"
             android:id="@+id/ipaddress_label"
@@ -628,7 +648,120 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/rsrq_label"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+            android:typeface="monospace"
+            android:enabled="false"
+            android:visibility="invisible"/>
+        <TextView
+            android:textColor="#FFFFFF"
+            android:id="@+id/bandwidth_label"
+            android:layout_width="180dp"
+            android:layout_height="40dp"
+            android:includeFontPadding="false"
+            android:singleLine="false"
+            android:text="Bandwidth"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/bandwidth"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ipaddress_label"
+            app:layout_constraintVertical_bias="0.0"
+            android:typeface="monospace"
+            android:enabled="false"
+            android:visibility="invisible"/>
+        <TextView
+            android:textColor="#FFFFFF"
+            android:id="@+id/ta_label"
+            android:layout_width="180dp"
+            android:layout_height="40dp"
+            android:includeFontPadding="false"
+            android:singleLine="false"
+            android:text="Timing Advance"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/ta"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bandwidth_label"
+            app:layout_constraintVertical_bias="0.0"
+            android:typeface="monospace"
+            android:enabled="false"
+            android:visibility="invisible"/>
+        <TextView
+            android:textColor="#FFFFFF"
+            android:id="@+id/nrarfcn_label"
+            android:layout_width="180dp"
+            android:layout_height="40dp"
+            android:includeFontPadding="false"
+            android:singleLine="false"
+            android:text="NRARFCN"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/nrarfcn"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ta_label"
+            app:layout_constraintVertical_bias="0.0"
+            android:typeface="monospace"
+            android:enabled="false"
+            android:visibility="invisible"/>
+
+        <TextView
+            android:textColor="#FFFFFF"
+            android:id="@+id/nr5gband_label"
+            android:layout_width="180dp"
+            android:layout_height="40dp"
+            android:includeFontPadding="false"
+            android:singleLine="false"
+            android:text="NR 5G Band"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/nr5gband"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nrarfcn_label"
+            app:layout_constraintVertical_bias="0.0"
+            android:typeface="monospace"
+            android:enabled="false"
+            android:visibility="invisible"/>
+
+        <TextView
+            android:textColor="#FFFFFF"
+            android:id="@+id/nrspectrum_label"
+            android:layout_width="180dp"
+            android:layout_height="40dp"
+            android:includeFontPadding="false"
+            android:singleLine="false"
+            android:text="NR Spectrum"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/nrspectrum"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nr5gband_label"
+            app:layout_constraintVertical_bias="0.0"
+            android:typeface="monospace"
+            android:enabled="false"
+            android:visibility="invisible"/>
+        <TextView
+            android:textColor="#FFFFFF"
+            android:id="@+id/nrpci_label"
+            android:layout_width="180dp"
+            android:layout_height="40dp"
+            android:includeFontPadding="false"
+            android:singleLine="false"
+            android:text="NR Pci"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/nrpci"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nrspectrum_label"
+            app:layout_constraintVertical_bias="0.0"
+            android:typeface="monospace"
+            android:enabled="false"
+            android:visibility="invisible"/>
         <TextView
             android:textColor="#FFFFFF"
             android:id="@+id/nrtac_label"
@@ -642,7 +775,10 @@
             app:layout_constraintEnd_toStartOf="@+id/nrtac"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ipaddress_label"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@+id/nrpci_label"
+            app:layout_constraintVertical_bias="0.0"
+            android:typeface="monospace"
+            android:enabled="false"
+            android:visibility="invisible"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

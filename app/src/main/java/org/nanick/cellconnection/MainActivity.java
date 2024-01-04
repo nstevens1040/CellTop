@@ -28,6 +28,7 @@ import android.telephony.TelephonyCallback;
 import android.telephony.TelephonyDisplayInfo;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import java.io.File;
@@ -306,28 +307,136 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     public void writeTextViews(CellInfoObj cio){
+        ((TextView)findViewById(R.id.rsrp)).setEnabled(true);
+        ((TextView)findViewById(R.id.rsrp)).setVisibility(View.VISIBLE);
         ((TextView)findViewById(R.id.rsrp)).setText(cio.Rsrp+" dBm");
+        ((TextView)findViewById(R.id.rsrp_label)).setVisibility(View.VISIBLE);
+        ((TextView)findViewById(R.id.rsrp_label)).setEnabled(true);
+        ((TextView)findViewById(R.id.downloadspeed)).setEnabled(true);
+        ((TextView)findViewById(R.id.downloadspeed)).setVisibility(View.VISIBLE);
         ((TextView)findViewById(R.id.downloadspeed)).setText(new DecimalFormat("0.00").format(cio.Speed)+" Mbps");
-        ((TextView)findViewById(R.id.ta)).setText(cio.TimingAdvance+"");
+        ((TextView)findViewById(R.id.downloadspeed_label)).setVisibility(View.VISIBLE);
+        ((TextView)findViewById(R.id.downloadspeed_label)).setEnabled(true);
+        if(cio.TimingAdvance != Integer.MAX_VALUE){
+            ((TextView)findViewById(R.id.ta)).setEnabled(true);
+            ((TextView)findViewById(R.id.ta)).setVisibility(View.VISIBLE);
+            ((TextView)findViewById(R.id.ta)).setText(cio.TimingAdvance+"");
+            ((TextView)findViewById(R.id.ta_label)).setVisibility(View.VISIBLE);
+            ((TextView)findViewById(R.id.ta_label)).setEnabled(true);
+        }
+        ((TextView)findViewById(R.id.plmn)).setEnabled(true);
+        ((TextView)findViewById(R.id.plmn)).setVisibility(View.VISIBLE);
         ((TextView)findViewById(R.id.plmn)).setText(cio.Plmn);
+        ((TextView)findViewById(R.id.plmn_label)).setVisibility(View.VISIBLE);
+        ((TextView)findViewById(R.id.plmn_label)).setEnabled(true);
+        ((TextView)findViewById(R.id.lac)).setEnabled(true);
+        ((TextView)findViewById(R.id.lac)).setVisibility(View.VISIBLE);
         ((TextView)findViewById(R.id.lac)).setText(cio.Tac+"");
+        ((TextView)findViewById(R.id.lac_label)).setVisibility(View.VISIBLE);
+        ((TextView)findViewById(R.id.lac_label)).setEnabled(true);
+        ((TextView)findViewById(R.id.cellid)).setEnabled(true);
+        ((TextView)findViewById(R.id.cellid)).setVisibility(View.VISIBLE);
         ((TextView)findViewById(R.id.cellid)).setText(cio.CellId+"");
+        ((TextView)findViewById(R.id.cellid_label)).setVisibility(View.VISIBLE);
+        ((TextView)findViewById(R.id.cellid_label)).setEnabled(true);
+        ((TextView)findViewById(R.id.enodeb)).setEnabled(true);
+        ((TextView)findViewById(R.id.enodeb)).setVisibility(View.VISIBLE);
         ((TextView)findViewById(R.id.enodeb)).setText(cio.eNodeB+"");
+        ((TextView)findViewById(R.id.enodeb_label)).setVisibility(View.VISIBLE);
+        ((TextView)findViewById(R.id.enodeb_label)).setEnabled(true);
+        ((TextView)findViewById(R.id.rat)).setEnabled(true);
+        ((TextView)findViewById(R.id.rat)).setVisibility(View.VISIBLE);
         ((TextView)findViewById(R.id.rat)).setText(cio.Rat);
+        ((TextView)findViewById(R.id.rat_label)).setVisibility(View.VISIBLE);
+        ((TextView)findViewById(R.id.rat_label)).setEnabled(true);
+        ((TextView)findViewById(R.id.latitude)).setEnabled(true);
+        ((TextView)findViewById(R.id.latitude)).setVisibility(View.VISIBLE);
         ((TextView)findViewById(R.id.latitude)).setText(cio.Lat+"");
+        ((TextView)findViewById(R.id.latitude_label)).setVisibility(View.VISIBLE);
+        ((TextView)findViewById(R.id.latitude_label)).setEnabled(true);
+        ((TextView)findViewById(R.id.longitude)).setEnabled(true);
+        ((TextView)findViewById(R.id.longitude)).setVisibility(View.VISIBLE);
         ((TextView)findViewById(R.id.longitude)).setText(cio.Lng+"");
+        ((TextView)findViewById(R.id.longitude_label)).setVisibility(View.VISIBLE);
+        ((TextView)findViewById(R.id.longitude_label)).setEnabled(true);
+        ((TextView)findViewById(R.id.channel)).setEnabled(true);
+        ((TextView)findViewById(R.id.channel)).setVisibility(View.VISIBLE);
         ((TextView)findViewById(R.id.channel)).setText(cio.EARFCN+"");
-        ((TextView)findViewById(R.id.nrarfcn)).setText(cio.NRARFCN+"");
+        ((TextView)findViewById(R.id.channel_label)).setVisibility(View.VISIBLE);
+        ((TextView)findViewById(R.id.channel_label)).setEnabled(true);
+        if(cio.NRARFCN != 0){
+            ((TextView)findViewById(R.id.nrarfcn)).setEnabled(true);
+            ((TextView)findViewById(R.id.nrarfcn)).setVisibility(View.VISIBLE);
+            ((TextView)findViewById(R.id.nrarfcn)).setText(cio.NRARFCN+"");
+            ((TextView)findViewById(R.id.nrarfcn_label)).setVisibility(View.VISIBLE);
+            ((TextView)findViewById(R.id.nrarfcn_label)).setEnabled(true);
+        }
+        ((TextView)findViewById(R.id.lte_band)).setEnabled(true);
+        ((TextView)findViewById(R.id.lte_band)).setVisibility(View.VISIBLE);
         ((TextView)findViewById(R.id.lte_band)).setText(cio.Band+"");
-        ((TextView)findViewById(R.id.nr5gband)).setText(cio.NR5GBandName);
+        ((TextView)findViewById(R.id.lte_band_label)).setVisibility(View.VISIBLE);
+        ((TextView)findViewById(R.id.lte_band_label)).setEnabled(true);
+        if(cio.NR5GBandName != null){
+            byte[] byteArray = cio.NR5GBandName.getBytes();
+            StringBuilder ssbb = new StringBuilder();
+            for(int b = 0; b < byteArray.length; b++){
+                ssbb.append(Integer.valueOf(byteArray[b]));
+            }
+            Log.i("CellTop",ssbb.toString());
+            ((TextView)findViewById(R.id.nr5gband)).setEnabled(true);
+            ((TextView)findViewById(R.id.nr5gband)).setVisibility(View.VISIBLE);
+            ((TextView)findViewById(R.id.nr5gband)).setText(cio.NR5GBandName);
+            ((TextView)findViewById(R.id.nr5gband_label)).setVisibility(View.VISIBLE);
+            ((TextView)findViewById(R.id.nr5gband_label)).setEnabled(true);
+        }
+        ((TextView)findViewById(R.id.spectrum)).setEnabled(true);
+        ((TextView)findViewById(R.id.spectrum)).setVisibility(View.VISIBLE);
         ((TextView)findViewById(R.id.spectrum)).setText(cio.Spectrum);
-        ((TextView)findViewById(R.id.nrspectrum)).setText(cio.NRSpectrum);
-        ((TextView)findViewById(R.id.bandwidth)).setText(cio.Bandwidth+" MHz");
+        ((TextView)findViewById(R.id.spectrum_label)).setVisibility(View.VISIBLE);
+        ((TextView)findViewById(R.id.spectrum_label)).setEnabled(true);
+        if(cio.NRSpectrum != null){
+            ((TextView)findViewById(R.id.nrspectrum)).setEnabled(true);
+            ((TextView)findViewById(R.id.nrspectrum)).setVisibility(View.VISIBLE);
+            ((TextView)findViewById(R.id.nrspectrum)).setText(cio.NRSpectrum);
+            ((TextView)findViewById(R.id.nrspectrum_label)).setVisibility(View.VISIBLE);
+            ((TextView)findViewById(R.id.nrspectrum_label)).setEnabled(true);
+        }
+        if(cio.Bandwidth != 0){
+            ((TextView)findViewById(R.id.bandwidth)).setEnabled(true);
+            ((TextView)findViewById(R.id.bandwidth)).setVisibility(View.VISIBLE);
+            ((TextView)findViewById(R.id.bandwidth)).setText(cio.Bandwidth+" MHz");
+            ((TextView)findViewById(R.id.bandwidth_label)).setVisibility(View.VISIBLE);
+            ((TextView)findViewById(R.id.bandwidth_label)).setEnabled(true);
+        }
+        ((TextView)findViewById(R.id.pci)).setEnabled(true);
+        ((TextView)findViewById(R.id.pci)).setVisibility(View.VISIBLE);
         ((TextView)findViewById(R.id.pci)).setText(cio.Pci+"");
-        ((TextView)findViewById(R.id.nrpci)).setText(cio.NRPci+"");
+        ((TextView)findViewById(R.id.pci_label)).setVisibility(View.VISIBLE);
+        ((TextView)findViewById(R.id.pci_label)).setEnabled(true);
+        if(cio.NRPci != 0){
+            ((TextView)findViewById(R.id.nrpci)).setEnabled(true);
+            ((TextView)findViewById(R.id.nrpci)).setVisibility(View.VISIBLE);
+            ((TextView)findViewById(R.id.nrpci)).setText(cio.NRPci+"");
+            ((TextView)findViewById(R.id.nrpci_label)).setVisibility(View.VISIBLE);
+            ((TextView)findViewById(R.id.nrpci_label)).setEnabled(true);
+        }
+        ((TextView)findViewById(R.id.rsrq)).setEnabled(true);
+        ((TextView)findViewById(R.id.rsrq)).setVisibility(View.VISIBLE);
         ((TextView)findViewById(R.id.rsrq)).setText(cio.Rsrq+"");
+        ((TextView)findViewById(R.id.rsrq_label)).setVisibility(View.VISIBLE);
+        ((TextView)findViewById(R.id.rsrq_label)).setEnabled(true);
+        ((TextView)findViewById(R.id.ipaddress)).setEnabled(true);
+        ((TextView)findViewById(R.id.ipaddress)).setVisibility(View.VISIBLE);
         ((TextView)findViewById(R.id.ipaddress)).setText(cio.IPAddress);
-        ((TextView)findViewById(R.id.nrtac)).setText(cio.NRTac+"");
+        ((TextView)findViewById(R.id.ipaddress_label)).setVisibility(View.VISIBLE);
+        ((TextView)findViewById(R.id.ipaddress_label)).setEnabled(true);
+        if(cio.NRTac != 0){
+            ((TextView)findViewById(R.id.nrtac)).setEnabled(true);
+            ((TextView)findViewById(R.id.nrtac)).setVisibility(View.VISIBLE);
+            ((TextView)findViewById(R.id.nrtac)).setText(cio.NRTac+"");
+            ((TextView)findViewById(R.id.nrtac_label)).setVisibility(View.VISIBLE);
+            ((TextView)findViewById(R.id.nrtac_label)).setEnabled(true);
+        }
     }
     @SuppressLint("MissingPermission")
     public void getCellDetails(Double mbps){
@@ -440,7 +549,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
-        if(MainActivity.phoneState != ""){
+        if(MainActivity.phoneState != null && MainActivity.phoneState != "None"){
             cio.Rat = MainActivity.phoneState;
         } else {
             cio.Rat = parseNetworkType(this.telephonyManager.getDataNetworkType());
