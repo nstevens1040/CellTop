@@ -35,6 +35,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -59,6 +62,9 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.StringJoiner;
 import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 
 public class MainActivity extends AppCompatActivity {
@@ -79,22 +85,26 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(MainActivity.this, permissions, 1);
         }
         setContentView(R.layout.activity_main);
-        this.locationListener = new LocationListenerImpl();
+        //this.locationListener = new LocationListenerImpl();
         CreateCSVFile();
         this.start();
     }
     @SuppressLint("MissingPermission")
     public void start(){
+        MainActivity m = new MainActivity();
         this.bands = BandsFromJson(this.lte_string);
         this.nr5gbands = Nr5GBandsFromJson(this.nr5g_string);
-        this.locationManager = (LocationManager) MainActivity.this.getSystemService(MainActivity.this.LOCATION_SERVICE);
-        this.locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,0,this.locationListener);
-        gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-        networkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-        //this.locationListener = new LocationListenerImpl();
         this.telephonyManager = (TelephonyManager)MainActivity.this.getSystemService(MainActivity.this.TELEPHONY_SERVICE);
         this.telephonyCallback = new DiCb();
         this.telephonyManager.registerTelephonyCallback(this.executorist,this.telephonyCallback);
+        ScheduledExecutorService executorService = Executors.newScheduledThreadPool(1);
+        executorService.scheduleAtFixedRate(new Runnable() {
+            @Override
+            public void run() {
+                SpeedTestTask test = new SpeedTestTask();
+                test.execute();
+            }
+        }, 0, 5, TimeUnit.SECONDS);
     }
     private Executor executorist = new Executor() {
         @Override
@@ -102,40 +112,6 @@ public class MainActivity extends AppCompatActivity {
             r.run();
         }
     };
-    public class LocationListenerImpl implements LocationListener {
-        @Override
-        public void onLocationChanged(Location location) {
-            if (location != null) {
-                Location loc = location;
-                try {
-                    if(loc != null){
-                        SpeedTestTask test = new SpeedTestTask(loc);
-                        test.execute();
-                    }
-                } catch (Exception ex) {
-                    throw new RuntimeException(ex);
-                }
-            } else {
-                Log.i("cellspeed", "Location is null.");
-            }
-        }
-        @Override
-        public void onProviderDisabled(String provider) {
-            if (provider.equals(LocationManager.GPS_PROVIDER)) {
-                gpsEnabled = false;
-            } else if (provider.equals(LocationManager.NETWORK_PROVIDER)) {
-                networkEnabled = false;
-            }
-        }
-        @Override
-        public void onProviderEnabled(String provider) {
-            if (provider.equals(LocationManager.GPS_PROVIDER)) {
-                gpsEnabled = true;
-            } else if (provider.equals(LocationManager.NETWORK_PROVIDER)) {
-                networkEnabled = true;
-            }
-        }
-    }
     public Bands[] BandsFromJson(String jsonString){
         ObjectMapper om = new ObjectMapper();
         try {
@@ -152,9 +128,9 @@ public class MainActivity extends AppCompatActivity {
                 this.csv_writer = new FileWriter(this.csv);
                 this.csv_writer.write("Rsrp,Speed,TimingAdvance,Plmn,Tac,CellId,eNodeB,Rat,Lat,Lng,EARFCN,Band,Spectrum,NRSpectrum,Bandwidth,Pci,Rsrq,IPAddress,NRPci,NRTac,NRARFCN,NR5GBandName,TimeStamp\n");
                 this.csv_writer.close();
-                Log.i("cellspeed", "File created.");
+                Log.i("celltop", "File created.");
             } else {
-                Log.e("cellspeed", "Failed to create file.");
+                Log.i("celltop", "Failed to create file.");
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -205,6 +181,47 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
+//    private static TelephonyDisplayInfo getTelephonyDisplayInfo(TelephonyManager telephonyManager) {
+//        try {
+//            // Get TelephonyDisplayInfo using reflection
+//            Method getTelephonyDisplayInfoMethod = telephonyManager.getClass().getMethod("getTelephonyDisplayInfo");
+//            return (TelephonyDisplayInfo) getTelephonyDisplayInfoMethod.invoke(telephonyManager);
+//        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
+//    public String GetNetworkOverride(){
+//        try {
+//
+//            Constructor<?> constructor = Class.forName("android.telephony.TelephonyDisplayInfo").getConstructor(new Class[0]);
+//            constructor.setAccessible(true);
+//            Object telephonyDisplayInfo = constructor.newInstance(new Object[0]);
+//            Method getOverrideNetworkTypeMethod = telephonyDisplayInfo.getClass().getMethod("getOverrideNetworkType");
+//            int networkOverride = (int) getOverrideNetworkTypeMethod.invoke(telephonyDisplayInfo);
+//            switch(networkOverride){
+//                case TelephonyDisplayInfo.OVERRIDE_NETWORK_TYPE_NONE:
+//                    return "None";
+//                case TelephonyDisplayInfo.OVERRIDE_NETWORK_TYPE_LTE_CA:
+//                    return "LTE CA";
+//                case TelephonyDisplayInfo.OVERRIDE_NETWORK_TYPE_LTE_ADVANCED_PRO:
+//                    return "LTE Advanced Pro";
+//                case TelephonyDisplayInfo.OVERRIDE_NETWORK_TYPE_NR_NSA:
+//                    return "NR NSA";
+//                case TelephonyDisplayInfo.OVERRIDE_NETWORK_TYPE_NR_NSA_MMWAVE:
+//                    return "NR NSA mmWave";
+//                case TelephonyDisplayInfo.OVERRIDE_NETWORK_TYPE_NR_ADVANCED:
+//                    return "NR Advanced";
+//                default:
+//                    return "Unknown";
+//            }
+//        }
+//        catch (ClassNotFoundException | InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
+//            e.printStackTrace();
+//        }
+//        return "";
+//    }
     public class PubIPTask extends AsyncTask<Void,Void,String> {
         public CellInfoObj cio;
         public PubIPTask(CellInfoObj cello){
@@ -239,10 +256,6 @@ public class MainActivity extends AppCompatActivity {
     public class SpeedTestTask extends AsyncTask<Void, Void, Double> {
         String testUrl = "https://nlp-137cf635-6c92-49b5-b943-f5c8c75e686f.s3.us-east-2.amazonaws.com/testing.bin";
         byte[] buffer = new byte[32]; //byte[] buffer = new byte[13107200];
-        public Location location;
-        public SpeedTestTask(Location loc){
-            this.location = loc;
-        }
         @Override
         protected Double doInBackground(Void... params) {
             try {
@@ -447,9 +460,14 @@ public class MainActivity extends AppCompatActivity {
             this.telephonyManager = (TelephonyManager)MainActivity.this.getSystemService(MainActivity.this.TELEPHONY_SERVICE);
         }
         cio.Plmn = telephonyManager.getNetworkOperator();
-        Location location = getLastKnownLocation();
-        cio.Lat = location.getLatitude();
-        cio.Lng = location.getLongitude();
+        Location location = getLastKnownLocation(MainActivity.this);
+        if(location != null){
+            cio.Lat = location.getLatitude();
+            cio.Lng = location.getLongitude();
+        } else {
+            cio.Lat = 0.0;
+            cio.Lng = 0.0;
+        }
         @SuppressLint("MissingPermission") List<CellInfo> allCells = telephonyManager.getAllCellInfo();
         @SuppressLint("MissingPermission") CellInfo cellInfo = allCells.get(0);
         if(cellInfo instanceof CellInfoLte){
@@ -480,6 +498,71 @@ public class MainActivity extends AppCompatActivity {
             //cio.Snr = signalStrengthLte.getRssnr();
             cio.eNodeB = Math.floorDiv((int)cio.CellId,256);
             cio.TimingAdvance = signalStrengthLte.getTimingAdvance();
+        } else if (cellInfo instanceof CellInfoNr) {
+            CellInfoNr cinr = (CellInfoNr)cellInfo;
+            CellSignalStrengthNr signalStrengthNr = (CellSignalStrengthNr) ((CellInfoNr)cellInfo).getCellSignalStrength();
+            CellIdentityNr cellIdNr = (CellIdentityNr) ((CellInfoNr)cellInfo).getCellIdentity();
+            cio.NRARFCN = cellIdNr.getNrarfcn();
+            cio.NRPci = cellIdNr.getPci();
+            cio.NRTac = cellIdNr.getTac();
+            Boolean found = false;
+            ArrayList<Nr5GBands> five1 = new ArrayList<Nr5GBands>();
+            for(int a = 0; a < this.nr5gbands.length; a++){
+                Nr5GBands b = this.nr5gbands[a];
+                ArrayList<Double> nrarfcnlist = b.dlNRARFCN;
+                Collections.sort(nrarfcnlist);
+                double n_low = nrarfcnlist.get(0);
+                double n_high = nrarfcnlist.get((nrarfcnlist.toArray().length - 1));
+                if(cio.NRARFCN >= n_low & cio.NRARFCN <= n_high){
+                    five1.add(b);
+                }
+            }
+            if(five1.stream().count() == 1){
+                cio.Nr5GBand = five1.get(0);
+                cio.NR5GBandName = five1.get(0).band;
+                cio.NRSpectrum = five1.get(0).name;
+            } else if(five1.stream().count() > 1){
+                ArrayList<Nr5GBands> five2 = new ArrayList<Nr5GBands>();
+                for(int a = 0; a < five1.stream().count(); a++){
+                    Nr5GBands b = five1.get(a);
+                    if(b.name != ""){
+                        five2.add(b);
+                    }
+                }
+                if(five2.stream().count() == 1){
+                    cio.Nr5GBand = five2.get(0);
+                    cio.NR5GBandName = five2.get(0).band;
+                    cio.NRSpectrum = five2.get(0).name;
+                } else if(five2.stream().count() > 1){
+                    Hashtable<Double,String> width = new Hashtable<Double,String>();
+                    for(int a = 0; a < five2.stream().count(); a++){
+                        Nr5GBands b = five2.get(a);
+                        ArrayList<Double> nrarfcnlist = b.dlNRARFCN;
+                        Collections.sort(nrarfcnlist);
+                        double n_low = nrarfcnlist.get(0);
+                        double n_high = nrarfcnlist.get((nrarfcnlist.toArray().length - 1));
+                        width.put((n_high - n_low),b.band);
+                    }
+                    ArrayList<Double> keys = new ArrayList<Double>();
+                    Enumeration key = width.keys();
+                    while (key.hasMoreElements())
+                    {
+                        Double d = Double.parseDouble(key.nextElement().toString());
+                        keys.add(d);
+                    }
+                    Double max = Collections.max(keys);
+                    String ba = width.get(max);
+                    for(int a = 0; a < five2.stream().count(); a++){
+                        Nr5GBands b = five2.get(a);
+                        if(b.band == ba){
+                            cio.Nr5GBand = b;
+                            cio.NR5GBandName = b.band;
+                            cio.NRSpectrum = b.name;
+                        }
+                    }
+
+                }
+            }
         }
         for(CellInfo cellInfos : allCells){
             if(cellInfos instanceof CellInfoNr){
@@ -596,31 +679,50 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     @SuppressLint("MissingPermission")
-    private Location getLastKnownLocation() {
-        Location gpsLocation = null;
-        Location networkLocation = null;
-        if (gpsEnabled) {
-            gpsLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        }
-        if (networkEnabled) {
-            networkLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-        }
-        if (gpsLocation == null && networkLocation == null) {
-            return null;
-        } else if (gpsLocation != null && networkLocation != null) {
-            long gpsTime = gpsLocation.getTime();
-            long networkTime = networkLocation.getTime();
-            if (gpsTime > networkTime) {
-                return gpsLocation;
-            } else {
-                return networkLocation;
+    private Location getLastKnownLocation(Context context) {
+        Location location = null;
+        try {
+            LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+            Method getLastKnownLocation = LocationManager.class.getMethod("getLastKnownLocation", String.class);
+            Object locationProvider = locationManager.getProvider(LocationManager.GPS_PROVIDER);
+            location = (Location) getLastKnownLocation.invoke(locationManager, LocationManager.GPS_PROVIDER);
+            if (location != null) {
+                double latitude = location.getLatitude();
+                double longitude = location.getLongitude();
+                String loc = "{\"lat\": "+latitude+",\"lng\": "+longitude+"}";
+                Log.i("CellTop",loc);
             }
-        } else if (gpsLocation != null) {
-            return gpsLocation;
-        } else {
-            return networkLocation;
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
         }
+        return location;
     }
+//    @SuppressLint("MissingPermission")
+//    private Location getLastKnownLocation() {
+//        Location gpsLocation = null;
+//        Location networkLocation = null;
+//        if (gpsEnabled) {
+//            gpsLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+//        }
+//        if (networkEnabled) {
+//            networkLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+//        }
+//        if (gpsLocation == null && networkLocation == null) {
+//            return null;
+//        } else if (gpsLocation != null && networkLocation != null) {
+//            long gpsTime = gpsLocation.getTime();
+//            long networkTime = networkLocation.getTime();
+//            if (gpsTime > networkTime) {
+//                return gpsLocation;
+//            } else {
+//                return networkLocation;
+//            }
+//        } else if (gpsLocation != null) {
+//            return gpsLocation;
+//        } else {
+//            return networkLocation;
+//        }
+//    }
     public class CellInfoObj {
         public CellInfoObj(){
         }
