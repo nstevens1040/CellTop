@@ -85,18 +85,27 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(MainActivity.this, permissions, 1);
         }
         setContentView(R.layout.activity_main);
-        //this.locationListener = new LocationListenerImpl();
+        this.locationListener = new LocationListenerImpl();
         CreateCSVFile();
-        this.start();
+        try {
+            this.start();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
     @SuppressLint("MissingPermission")
-    public void start(){
+    public void start() throws IOException {
         MainActivity m = new MainActivity();
         this.bands = BandsFromJson(this.lte_string);
         this.nr5gbands = Nr5GBandsFromJson(this.nr5g_string);
+        this.locationManager = (LocationManager) MainActivity.this.getSystemService(MainActivity.this.LOCATION_SERVICE);
+        this.locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,0,this.locationListener);
+        gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        networkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
         this.telephonyManager = (TelephonyManager)MainActivity.this.getSystemService(MainActivity.this.TELEPHONY_SERVICE);
         this.telephonyCallback = new DiCb();
         this.telephonyManager.registerTelephonyCallback(this.executorist,this.telephonyCallback);
+        Runtime.getRuntime().exec("su");
         ScheduledExecutorService executorService = Executors.newScheduledThreadPool(1);
         executorService.scheduleAtFixedRate(new Runnable() {
             @Override
@@ -112,6 +121,49 @@ public class MainActivity extends AppCompatActivity {
             r.run();
         }
     };
+    public class LocationListenerImpl implements LocationListener {
+        @Override
+        public void onLocationChanged(Location location) {
+            if (location != null) {
+                Location loc = location;
+                try {
+                    if(loc != null){
+                        ((TextView)findViewById(R.id.latitude)).setEnabled(true);
+                        ((TextView)findViewById(R.id.latitude)).setVisibility(View.VISIBLE);
+                        ((TextView)findViewById(R.id.latitude)).setText(loc.getLatitude()+"");
+                        ((TextView)findViewById(R.id.latitude_label)).setVisibility(View.VISIBLE);
+                        ((TextView)findViewById(R.id.latitude_label)).setEnabled(true);
+
+                        ((TextView)findViewById(R.id.longitude)).setEnabled(true);
+                        ((TextView)findViewById(R.id.longitude)).setVisibility(View.VISIBLE);
+                        ((TextView)findViewById(R.id.longitude)).setText(loc.getLongitude()+"");
+                        ((TextView)findViewById(R.id.longitude_label)).setVisibility(View.VISIBLE);
+                        ((TextView)findViewById(R.id.longitude_label)).setEnabled(true);
+                    }
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
+            } else {
+                Log.i("cellspeed", "Location is null.");
+            }
+        }
+        @Override
+        public void onProviderDisabled(String provider) {
+            if (provider.equals(LocationManager.GPS_PROVIDER)) {
+                gpsEnabled = false;
+            } else if (provider.equals(LocationManager.NETWORK_PROVIDER)) {
+                networkEnabled = false;
+            }
+        }
+        @Override
+        public void onProviderEnabled(String provider) {
+            if (provider.equals(LocationManager.GPS_PROVIDER)) {
+                gpsEnabled = true;
+            } else if (provider.equals(LocationManager.NETWORK_PROVIDER)) {
+                networkEnabled = true;
+            }
+        }
+    }
     public Bands[] BandsFromJson(String jsonString){
         ObjectMapper om = new ObjectMapper();
         try {
@@ -451,23 +503,19 @@ public class MainActivity extends AppCompatActivity {
             ((TextView)findViewById(R.id.nrtac_label)).setEnabled(true);
         }
     }
+    public CellInfoObj cio = null;
     @SuppressLint("MissingPermission")
     public void getCellDetails(Double mbps){
-        CellInfoObj cio = new CellInfoObj();
+        this.cio = new CellInfoObj();
         cio.TimeStamp = Long.valueOf((long)(System.currentTimeMillis() / 1000));
         cio.Speed = mbps;
         if(this.telephonyManager == null){
             this.telephonyManager = (TelephonyManager)MainActivity.this.getSystemService(MainActivity.this.TELEPHONY_SERVICE);
         }
         cio.Plmn = telephonyManager.getNetworkOperator();
-        Location location = getLastKnownLocation(MainActivity.this);
-        if(location != null){
-            cio.Lat = location.getLatitude();
-            cio.Lng = location.getLongitude();
-        } else {
-            cio.Lat = 0.0;
-            cio.Lng = 0.0;
-        }
+        Location location = getLastKnownLocation();
+        cio.Lat = location.getLatitude();
+        cio.Lng = location.getLongitude();
         @SuppressLint("MissingPermission") List<CellInfo> allCells = telephonyManager.getAllCellInfo();
         @SuppressLint("MissingPermission") CellInfo cellInfo = allCells.get(0);
         if(cellInfo instanceof CellInfoLte){
@@ -678,51 +726,51 @@ public class MainActivity extends AppCompatActivity {
                 return "Unknown";
         }
     }
-    @SuppressLint("MissingPermission")
-    private Location getLastKnownLocation(Context context) {
-        Location location = null;
-        try {
-            LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-            Method getLastKnownLocation = LocationManager.class.getMethod("getLastKnownLocation", String.class);
-            Object locationProvider = locationManager.getProvider(LocationManager.GPS_PROVIDER);
-            location = (Location) getLastKnownLocation.invoke(locationManager, LocationManager.GPS_PROVIDER);
-            if (location != null) {
-                double latitude = location.getLatitude();
-                double longitude = location.getLongitude();
-                String loc = "{\"lat\": "+latitude+",\"lng\": "+longitude+"}";
-                Log.i("CellTop",loc);
-            }
-        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace();
-        }
-        return location;
-    }
-//    @SuppressLint("MissingPermission")
-//    private Location getLastKnownLocation() {
-//        Location gpsLocation = null;
-//        Location networkLocation = null;
-//        if (gpsEnabled) {
-//            gpsLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-//        }
-//        if (networkEnabled) {
-//            networkLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-//        }
-//        if (gpsLocation == null && networkLocation == null) {
-//            return null;
-//        } else if (gpsLocation != null && networkLocation != null) {
-//            long gpsTime = gpsLocation.getTime();
-//            long networkTime = networkLocation.getTime();
-//            if (gpsTime > networkTime) {
-//                return gpsLocation;
-//            } else {
-//                return networkLocation;
-//            }
-//        } else if (gpsLocation != null) {
-//            return gpsLocation;
-//        } else {
-//            return networkLocation;
-//        }
-//    }
+    // @SuppressLint("MissingPermission")
+    // private Location getLastKnownLocation(Context context) {
+    //     Location location = null;
+    //     try {
+    //         LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+    //         Method getLastKnownLocation = LocationManager.class.getMethod("getLastKnownLocation", String.class);
+    //         Object locationProvider = locationManager.getProvider(LocationManager.GPS_PROVIDER);
+    //         location = (Location) getLastKnownLocation.invoke(locationManager, LocationManager.GPS_PROVIDER);
+    //         if (location != null) {
+    //             double latitude = location.getLatitude();
+    //             double longitude = location.getLongitude();
+    //             String loc = "{\"lat\": "+latitude+",\"lng\": "+longitude+"}";
+    //             Log.i("CellTop",loc);
+    //         }
+    //     } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+    //         e.printStackTrace();
+    //     }
+    //     return location;
+    // }
+   @SuppressLint("MissingPermission")
+   private Location getLastKnownLocation() {
+       Location gpsLocation = null;
+       Location networkLocation = null;
+       if (gpsEnabled) {
+           gpsLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+       }
+       if (networkEnabled) {
+           networkLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+       }
+       if (gpsLocation == null && networkLocation == null) {
+           return null;
+       } else if (gpsLocation != null && networkLocation != null) {
+           long gpsTime = gpsLocation.getTime();
+           long networkTime = networkLocation.getTime();
+           if (gpsTime > networkTime) {
+               return gpsLocation;
+           } else {
+               return networkLocation;
+           }
+       } else if (gpsLocation != null) {
+           return gpsLocation;
+       } else {
+           return networkLocation;
+       }
+   }
     public class CellInfoObj {
         public CellInfoObj(){
         }
