@@ -306,7 +306,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
     public class SpeedTestTask extends AsyncTask<Void, Void, Double> {
-        String testUrl = "https://nlp-137cf635-6c92-49b5-b943-f5c8c75e686f.s3.us-east-2.amazonaws.com/testing.bin";
+        String testUrl = "https://storage.googleapis.com/nlp-137cf635-6c92-49b5-b943-f5c8c75e686f/testing.bin";
         byte[] buffer = new byte[32]; //byte[] buffer = new byte[13107200];
         @Override
         protected Double doInBackground(Void... params) {
